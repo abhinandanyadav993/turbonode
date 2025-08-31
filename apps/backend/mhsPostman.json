@@ -1,0 +1,198 @@
+{
+  "info": {
+    "name": "MHS Backend API",
+    "_postman_id": "mhs-backend-collection",
+    "description": "Collection for MHS Backend APIs including Users, Products, Orders, Reviews, Shippings, and Payments",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Users",
+      "item": [
+        {
+          "name": "Create User",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"John\",\n  \"lastName\": \"Doe\",\n  \"companyName\": \"Acme Corp\",\n  \"phoneNumber\": \"1234567890\",\n  \"email\": \"john@example.com\",\n  \"shippingAddresses\": [\"123 Main St\"]\n}"
+            },
+            "url": "{{baseUrl}}/users"
+          }
+        },
+        { "name": "Get All Users", "request": { "method": "GET", "url": "{{baseUrl}}/users" } },
+        { "name": "Get User by ID", "request": { "method": "GET", "url": "{{baseUrl}}/users/{{userId}}" } },
+        {
+          "name": "Update User",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{ \"firstName\": \"Jane\" }" },
+            "url": "{{baseUrl}}/users/{{userId}}"
+          }
+        },
+        { "name": "Delete User", "request": { "method": "DELETE", "url": "{{baseUrl}}/users/{{userId}}" } }
+      ]
+    },
+    {
+      "name": "Products",
+      "item": [
+        {
+          "name": "Create Product",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Sample Product\",\n  \"pictures\": [],\n  \"mrp\": 1000,\n  \"discountedPrice\": 800,\n  \"stockAvailability\": 50\n}"
+            },
+            "url": "{{baseUrl}}/products"
+          }
+        },
+        { "name": "Get All Products", "request": { "method": "GET", "url": "{{baseUrl}}/products" } },
+        { "name": "Get Product by ID", "request": { "method": "GET", "url": "{{baseUrl}}/products/{{productId}}" } },
+        {
+          "name": "Update Product",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{ \"title\": \"Updated Product\" }" },
+            "url": "{{baseUrl}}/products/{{productId}}"
+          }
+        },
+        { "name": "Delete Product", "request": { "method": "DELETE", "url": "{{baseUrl}}/products/{{productId}}" } },
+        {
+          "name": "Search Product by Title",
+          "request": { "method": "GET", "url": "{{baseUrl}}/products/search/title/{{productTitle}}" }
+        },
+        {
+          "name": "Search Product by Tags",
+          "request": { "method": "GET", "url": "{{baseUrl}}/products/search/tags/{{tag}}" }
+        }
+      ]
+    },
+    {
+      "name": "Orders",
+      "item": [
+        {
+          "name": "Create Order",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"customerId\": \"{{userId}}\",\n  \"products\": [{ \"productId\": \"{{productId}}\", \"quantity\": 2 }],\n  \"orderValue\": 1600\n}"
+            },
+            "url": "{{baseUrl}}/orders"
+          }
+        },
+        { "name": "Get All Orders", "request": { "method": "GET", "url": "{{baseUrl}}/orders" } },
+        { "name": "Get Order by ID", "request": { "method": "GET", "url": "{{baseUrl}}/orders/{{orderId}}" } },
+        {
+          "name": "Update Order",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{ \"orderStatus\": \"SHIPPED\" }" },
+            "url": "{{baseUrl}}/orders/{{orderId}}"
+          }
+        },
+        { "name": "Delete Order", "request": { "method": "DELETE", "url": "{{baseUrl}}/orders/{{orderId}}" } }
+      ]
+    },
+    {
+      "name": "Reviews",
+      "item": [
+        {
+          "name": "Create Review",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{ \"customerId\": \"{{userId}}\", \"comments\": \"Great product\", \"ratings\": 5 }" },
+            "url": "{{baseUrl}}/reviews"
+          }
+        },
+        { "name": "Get All Reviews", "request": { "method": "GET", "url": "{{baseUrl}}/reviews" } },
+        { "name": "Get Review by ID", "request": { "method": "GET", "url": "{{baseUrl}}/reviews/{{reviewId}}" } },
+        {
+          "name": "Update Review",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{ \"comments\": \"Updated comment\" }" },
+            "url": "{{baseUrl}}/reviews/{{reviewId}}"
+          }
+        },
+        { "name": "Delete Review", "request": { "method": "DELETE", "url": "{{baseUrl}}/reviews/{{reviewId}}" } }
+      ]
+    },
+    {
+      "name": "Shippings",
+      "item": [
+        {
+          "name": "Create Shipping",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"vendorName\": \"FedEx\",\n  \"vendorUrl\": \"https://fedex.com\",\n  \"vendorTrackingUrl\": \"https://fedex.com/track\",\n  \"contactNumber\": \"1234567890\",\n  \"email\": \"support@fedex.com\"\n}"
+            },
+            "url": "{{baseUrl}}/shippings"
+          }
+        },
+        { "name": "Get All Shippings", "request": { "method": "GET", "url": "{{baseUrl}}/shippings" } },
+        { "name": "Get Shipping by ID", "request": { "method": "GET", "url": "{{baseUrl}}/shippings/{{shippingId}}" } },
+        {
+          "name": "Update Shipping",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{ \"vendorName\": \"DHL\" }" },
+            "url": "{{baseUrl}}/shippings/{{shippingId}}"
+          }
+        },
+        { "name": "Delete Shipping", "request": { "method": "DELETE", "url": "{{baseUrl}}/shippings/{{shippingId}}" } }
+      ]
+    },
+    {
+      "name": "Payments",
+      "item": [
+        {
+          "name": "Create Payment",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{ \"orderId\": \"{{orderId}}\", \"amount\": 1600, \"method\": \"CREDIT_CARD\" }" },
+            "url": "{{baseUrl}}/payments"
+          }
+        },
+        { "name": "Get All Payments", "request": { "method": "GET", "url": "{{baseUrl}}/payments" } },
+        { "name": "Get Payment by ID", "request": { "method": "GET", "url": "{{baseUrl}}/payments/{{paymentId}}" } },
+        {
+          "name": "Update Payment Status",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{ \"status\": \"CONFIRMED\" }" },
+            "url": "{{baseUrl}}/payments/{{paymentId}}/status"
+          }
+        },
+        {
+          "name": "Create Stripe Checkout Session",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{ \"orderId\": \"{{orderId}}\", \"amount\": 1600, \"currency\": \"usd\" }" },
+            "url": "{{baseUrl}}/payments/create-checkout-session"
+          }
+        },
+        {
+          "name": "Refund Payment",
+          "request": { "method": "POST", "url": "{{baseUrl}}/payments/refund/{{paymentId}}" }
+        }
+      ]
+    }
+  ]
+}
